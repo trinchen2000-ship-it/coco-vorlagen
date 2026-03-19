@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vorlagen Upload · Coco Colours</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:       #0e0c0a;
+      --card:     #191512;
+      --border:   #33281e;
+      --border-hi:#5a4530;
+      --gold:     #d4a843;
+      --gold-d:   #9a7530;
+      --red:      #c0251f;
+      --red-d:    #8f1b16;
+      --text:     #f0e8de;
+      --sub:      #b8aa98;
+      --muted:    #7a6e62;
+      --success:  #4a9e60;
+      --error:    #c94040;
+      --info:     #d4a843;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 400;
+      min-height: 100vh;
+      padding: 40px 16px 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background:
+        radial-gradient(ellipse 100% 40% at 50% 0%, rgba(212,168,67,0.09) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 50% at 100% 100%, rgba(192,37,31,0.07) 0%, transparent 55%);
+      pointer-events: none; z-index: 0;
+    }
+
+    .wrap {
+      position: relative; z-index: 1;
+      width: 100%; max-width: 520px;
+    }
+
+    /* ═══ HEADER ═══ */
+    header {
+      text-align: center;
+      margin-bottom: 36px;
+      padding: 0 8px;
+    }
+
+    .brand {
+      font-family: 'Barlow', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 8px;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 14px;
+    }
+
+    .ornament {
+      display: flex; align-items: center;
+      justify-content: center; gap: 12px;
+      margin-bottom: 16px;
+    }
+    .orn-line {
+      flex: 1; max-width: 50px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-d));
+    }
+    .orn-line.r { background: linear-gradient(90deg, var(--gold-d), transparent); }
+    .orn-diamond { color: var(--gold-d); font-size: 14px; }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(40px, 11vw, 58px);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.05;
+      margin-bottom: 14px;
+    }
+
+    .lead {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--sub);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    /* ═══ INFO BOX ═══ */
+    .info-box {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: rgba(212,168,67,0.08);
+      border: 1.5px solid rgba(212,168,67,0.25);
+      border-radius: 4px;
+      padding: 14px 16px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .info-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+    .info-box p {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--sub);
+      line-height: 1.6;
+    }
+
+    /* ═══ WHATSAPP BUTTON ═══ */
+    .wa-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #1a7a3a;
+      border-radius: 30px;
+      color: #fff;
+      font-family: 'Barlow', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 13px 24px;
+      text-decoration: none;
+      transition: background .2s, transform .1s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .wa-btn:hover { background: #217a42; }
+    .wa-btn:active { transform: scale(0.98); }
+    .wa-icon {
+      width: 22px; height: 22px;
+      fill: #fff; flex-shrink: 0;
+    }
+
+    /* ═══ CARD ═══ */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 28px 22px;
+    }
+
+    /* ═══ SECTION HEADERS ═══ */
+    .sec {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 18px;
+    }
+    .sec-text {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      white-space: nowrap;
+    }
+    .sec-line {
+      flex: 1; height: 1px;
+      background: linear-gradient(90deg, var(--border-hi), transparent);
+    }
+
+    /* ═══ MODE TOGGLE ═══ */
+    .mode-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .mode-btn {
+      border: 2px solid var(--border);
+      border-radius: 4px;
+      padding: 18px 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mode-btn:active { transform: scale(0.98); }
+    .mode-btn.active {
+      border-color: var(--gold);
+      background: rgba(212,168,67,0.07);
+    }
+
+    .mode-icon { font-size: 28px; display: block; margin-bottom: 10px; }
+
+    .mode-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      display: block;
+      margin-bottom: 5px;
+    }
+    .mode-desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--sub);
+      line-height: 1.5;
+    }
+
+    /* ═══ FORM FIELDS ═══ */
+    .fields { display: flex; flex-direction: column; gap: 16px; margin-bottom: 26px; }
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    .field { display: flex; flex-direction: column; gap: 8px; }
+
+    label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--sub);
+    }
+
+    input, select, textarea {
+      background: rgba(255,255,255,0.04);
+      border: 1.5px solid var(--border);
+      border-radius: 4px;
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      padding: 14px 14px;
+      outline: none;
+      transition: border-color .2s, background .2s;
+      width: 100%;
+      /* Prevents iOS zoom on focus */
+      -webkit-text-size-adjust: 100%;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--gold);
+      background: rgba(255,255,255,0.06);
+    }
+    input::placeholder, textarea::placeholder { color: var(--muted); }
+
+    select {
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M0 0l6 8 6-8z' fill='%237a6e62'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 38px;
+    }
+    select option { background: #1a1612; font-size: 16px; }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      filter: invert(0.5) sepia(1) saturate(2) hue-rotate(5deg);
+      cursor: pointer;
+      width: 20px; height: 20px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+      line-height: 1.6;
+    }
+
+    /* ═══ DROP ZONE ═══ */
+    .dropzone {
+      border: 2px dashed var(--border-hi);
+      border-radius: 4px;
+      padding: 36px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+      position: relative;
+      margin-bottom: 18px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .dropzone:hover, .dropzone.over {
+      border-color: var(--gold);
+      background: rgba(212,168,67,0.04);
+    }
+    .dropzone input[type="file"] {
+      position: absolute; inset: 0;
+      opacity: 0; cursor: pointer;
+      width: 100%; height: 100%;
+      border: none; padding: 0; font-size: 0;
+    }
+    .drop-icon { font-size: 32px; margin-bottom: 12px; display: block; }
+    .drop-primary {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text);
+      display: block;
+      margin-bottom: 6px;
+    }
+    .drop-sub {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--sub);
+    }
+    .drop-sub em { color: var(--gold); font-style: normal; font-weight: 500; }
+
+    /* ═══ FILE LIST ═══ */
+    #file-list {
+      display: flex; flex-direction: column; gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .file-item {
+      border: 1.5px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      animation: slideIn .2s ease;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .file-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+    }
+
+    .file-thumb {
+      width: 44px; height: 44px;
+      border-radius: 3px;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: var(--border);
+    }
+    .file-thumb-generic {
+      width: 44px; height: 44px;
+      border-radius: 3px;
+      background: var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; flex-shrink: 0;
+    }
+
+    .file-meta { flex: 1; min-width: 0; }
+    .file-name {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .file-size {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .file-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    /* Notiz-Button — auffällig */
+    .notiz-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(212,168,67,0.12);
+      border: 1.5px solid var(--gold-d);
+      border-radius: 20px;
+      color: var(--gold);
+      font-family: 'Barlow', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: background .2s, border-color .2s;
+      white-space: nowrap;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .notiz-btn:hover, .notiz-btn.open {
+      background: rgba(212,168,67,0.2);
+      border-color: var(--gold);
+    }
+    .notiz-btn .notiz-icon { font-size: 14px; }
+
+    .remove-btn {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: none;
+      border: 1.5px solid var(--border);
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color .2s, color .2s;
+      flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .remove-btn:hover { border-color: var(--red); color: var(--red); }
+
+    /* Notiz-Feld */
+    .notiz-wrap {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .3s ease;
+    }
+    .notiz-wrap.open { max-height: 200px; }
+
+    .notiz-inner {
+      padding: 0 14px 14px;
+      border-top: 1px solid var(--border);
+    }
+    .notiz-inner textarea {
+      min-height: 80px;
+      font-size: 15px;
+      background: rgba(212,168,67,0.04);
+      border-color: var(--gold-d);
+      margin-top: 12px;
+    }
+    .notiz-inner textarea:focus { border-color: var(--gold); }
+    .notiz-hint {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--muted);
+      margin-top: 6px;
+      display: block;
+    }
+
+    /* Upload-Status am Datei-Item */
+    .file-status {
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .file-status.uploading { color: var(--gold); }
+    .file-status.done      { color: var(--success); }
+    .file-status.error     { color: var(--error); }
+
+    /* ═══ PROGRESS ═══ */
+    .prog-wrap {
+      height: 3px;
+      background: var(--border);
+      border-radius: 2px;
+      margin-bottom: 18px;
+      overflow: hidden;
+      display: none;
+    }
+    .prog-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold-d), var(--gold));
+      width: 0%;
+      transition: width .3s ease;
+    }
+
+    /* ═══ SUBMIT BUTTON ═══ */
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--red-d) 0%, var(--red) 100%);
+      border: none;
+      border-radius: 4px;
+      color: #fff;
+      font-family: 'Barlow', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 18px;
+      cursor: pointer;
+      transition: opacity .2s, transform .1s;
+      -webkit-tap-highlight-color: transparent;
+      position: relative;
+      overflow: hidden;
+      min-height: 58px;
+    }
+    .btn-submit::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.08), transparent);
+    }
+    .btn-submit:active:not(:disabled) { transform: scale(0.99); }
+    .btn-submit:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    /* ═══ STATUS BANNER ═══ */
+    .banner {
+      margin-top: 16px;
+      padding: 16px 18px;
+      border-radius: 4px;
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.6;
+      white-space: pre-line;
+      display: none;
+    }
+    .banner.success {
+      display: block;
+      background: rgba(74,158,96,0.12);
+      border: 1.5px solid rgba(74,158,96,0.35);
+      color: #6dd88a;
+    }
+    .banner.error {
+      display: block;
+      background: rgba(201,64,64,0.12);
+      border: 1.5px solid rgba(201,64,64,0.35);
+      color: #e07070;
+    }
+    .banner.info {
+      display: block;
+      background: rgba(212,168,67,0.1);
+      border: 1.5px solid rgba(212,168,67,0.3);
+      color: var(--gold);
+    }
+
+    /* ═══ DIVIDER ═══ */
+    .section-gap { margin-bottom: 26px; }
+
+    /* ═══ FOOTER ═══ */
+    footer {
+      text-align: center;
+      margin-top: 28px;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    /* ═══ MOBILE ADJUSTMENTS ═══ */
+    @media (max-width: 400px) {
+      .card { padding: 22px 16px; }
+      .mode-grid { gap: 8px; }
+      .mode-btn { padding: 14px 8px; }
+      .mode-title { font-size: 13px; }
+      .row2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header>
+    <span class="brand">Coco Colours</span>
+    <div class="ornament">
+      <div class="orn-line"></div>
+      <span class="orn-diamond">✦</span>
+      <div class="orn-line r"></div>
+    </div>
+    <h1>Deine Vorlagen</h1>
+    <p class="lead">Schick uns vor deinem Termin deine<br>Referenzbilder oder eine Nachricht.</p>
+
+    <div class="info-box">
+      <span class="info-icon">💡</span>
+      <p>Du kannst mehrmals Bilder hochladen — alles landet automatisch beim selben Termin. Gib dazu einfach immer denselben Vor- und Nachnamen an. Groß- oder Kleinschreibung spielt dabei keine Rolle.</p>
+    </div>
+
+    <a class="wa-btn" href="https://wa.me/4915774771330" target="_blank" rel="noopener">
+      <svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      Fragen? Schreib uns auf WhatsApp
+    </a>
+
+  </header>
+
+  <div class="card">
+
+    <!-- MODE -->
+    <div class="sec">
+      <span class="sec-text">Auswahl</span>
+      <div class="sec-line"></div>
+    </div>
+    <div class="mode-grid">
+      <div class="mode-btn active" id="mode-bilder" onclick="setMode('bilder')">
+        <span class="mode-icon">🖼️</span>
+        <span class="mode-title">Bilder</span>
+        <span class="mode-desc">Referenzen & Fotos hochladen</span>
+      </div>
+      <div class="mode-btn" id="mode-text" onclick="setMode('text')">
+        <span class="mode-icon">💬</span>
+        <span class="mode-title">Nachricht</span>
+        <span class="mode-desc">Nur Text senden, ohne Bilder</span>
+      </div>
+    </div>
+
+    <!-- ANGABEN -->
+    <div class="sec">
+      <span class="sec-text">Deine Angaben</span>
+      <div class="sec-line"></div>
+    </div>
+    <div class="fields">
+      <div class="row2">
+        <div class="field">
+          <label for="vorname">Vorname</label>
+          <input type="text" id="vorname" placeholder="Jana" autocomplete="given-name" />
+        </div>
+        <div class="field">
+          <label for="nachname">Nachname</label>
+          <input type="text" id="nachname" placeholder="Müller" autocomplete="family-name" />
+        </div>
+      </div>
+      <div class="field">
+        <label for="datum">Termindatum</label>
+        <input type="date" id="datum" />
+      </div>
+      <div class="field">
+        <label for="artist">Dein Artist</label>
+        <select id="artist">
+          <option value="">— bitte wählen —</option>
+          <option>Trine</option>
+          <option>Franzi</option>
+          <option>Juli</option>
+          <option>Daniel</option>
+          <option>Christian</option>
+          <option>Aleks</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- BILDER-BEREICH -->
+    <div id="section-bilder">
+      <div class="sec">
+        <span class="sec-text">Allgemeine Notiz</span>
+        <div class="sec-line"></div>
+      </div>
+      <div class="field" style="margin-bottom:26px">
+        <label for="allg-notiz">Nachricht oder Wünsche an deinen Artist</label>
+        <textarea id="allg-notiz" placeholder="z.B. Ich möchte das Motiv etwas größer als auf dem Referenzbild … (optional)"></textarea>
+      </div>
+
+      <div class="sec">
+        <span class="sec-text">Referenzbilder</span>
+        <div class="sec-line"></div>
+      </div>
+
+      <div class="dropzone" id="dropzone">
+        <input type="file" id="file-input" multiple accept=".jpg,.jpeg,.png,.gif,.webp,.heic,.heif,.pdf" />
+        <span class="drop-icon">📎</span>
+        <span class="drop-primary">Dateien auswählen</span>
+        <span class="drop-sub">Tippen zum Auswählen · JPG, PNG, GIF, WEBP, HEIC, PDF</span>
+      </div>
+
+      <div id="file-list"></div>
+
+      <div class="prog-wrap" id="prog-wrap">
+        <div class="prog-bar" id="prog-bar"></div>
+      </div>
+
+      <button class="btn-submit" id="btn-upload" onclick="uploadBilder()">
+        Vorlagen Hochladen
+      </button>
+    </div>
+
+    <!-- NACHRICHT-BEREICH -->
+    <div id="section-text" style="display:none">
+      <div class="sec">
+        <span class="sec-text">Deine Nachricht</span>
+        <div class="sec-line"></div>
+      </div>
+      <div class="field section-gap">
+        <label for="nachricht">Nachricht an deinen Artist</label>
+        <textarea id="nachricht" placeholder="Deine Ideen, Wünsche oder Fragen …"></textarea>
+      </div>
+      <button class="btn-submit" onclick="sendNachricht()">
+        Nachricht Senden
+      </button>
+    </div>
+
+    <div class="banner" id="banner"></div>
+  </div>
+
+  <footer>Tattoo &amp; Piercing Studio · Jena · coco-colours.de</footer>
+</div>
+
+<script>
+  // ── Modus ─────────────────────────────────────────────────
+  let mode = 'bilder';
+
+  function setMode(m) {
+    mode = m;
+    document.getElementById('mode-bilder').classList.toggle('active', m === 'bilder');
+    document.getElementById('mode-text').classList.toggle('active', m === 'text');
+    document.getElementById('section-bilder').style.display = m === 'bilder' ? '' : 'none';
+    document.getElementById('section-text').style.display   = m === 'text'   ? '' : 'none';
+    hideBanner();
+  }
+
+  // ── Dateien ───────────────────────────────────────────────
+  let files = []; // { file, note, noteOpen }
+
+  const dropzone  = document.getElementById('dropzone');
+  const fileInput = document.getElementById('file-input');
+
+  dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('over'); });
+  dropzone.addEventListener('dragleave', () => dropzone.classList.remove('over'));
+  dropzone.addEventListener('drop', e => {
+    e.preventDefault(); dropzone.classList.remove('over');
+    addFiles([...e.dataTransfer.files]);
+  });
+  fileInput.addEventListener('change', () => {
+    addFiles([...fileInput.files]);
+    fileInput.value = '';
+  });
+
+  const ALLOWED_EXT = new Set(['.jpg','.jpeg','.png','.gif','.webp','.heic','.heif','.pdf']);
+
+  function getExt(name) {
+    const i = name.lastIndexOf('.');
+    return i >= 0 ? name.slice(i).toLowerCase() : '';
+  }
+
+  function addFiles(newFiles) {
+    const blocked = newFiles.filter(f => !ALLOWED_EXT.has(getExt(f.name)));
+    if (blocked.length > 0) {
+      showBanner('error', `⚠ Nicht erlaubter Dateityp: ${blocked.map(f => getExt(f.name) || f.name).join(', ')}\nErlaubt: JPG, PNG, GIF, WEBP, HEIC, PDF`);
+      return;
+    }
+    newFiles.forEach(f => {
+      if (!files.find(x => x.file.name === f.name && x.file.size === f.size))
+        files.push({ file: f, note: '', noteOpen: false, objUrl: null });
+    });
+    renderList();
+  }
+
+  function removeFile(i) {
+    if (files[i].objUrl) URL.revokeObjectURL(files[i].objUrl);
+    files.splice(i, 1);
+    renderList();
+  }
+
+  function toggleNote(i) {
+    files[i].noteOpen = !files[i].noteOpen;
+    renderList();
+    // Focus textarea wenn offen
+    if (files[i].noteOpen) {
+      setTimeout(() => {
+        const ta = document.getElementById(`note-ta-${i}`);
+        if (ta) ta.focus();
+      }, 320);
+    }
+  }
+
+  function updateNote(i, val) { files[i].note = val; }
+
+  function fmtSize(b) {
+    if (b < 1024)         return b + ' B';
+    if (b < 1024 * 1024)  return (b / 1024).toFixed(1) + ' KB';
+    return (b / 1024 / 1024).toFixed(1) + ' MB';
+  }
+
+  function escHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function renderList(statuses = {}) {
+    const list = document.getElementById('file-list');
+    list.innerHTML = '';
+
+    files.forEach((item, i) => {
+      const st = statuses[i] || 'pending';
+      const stHtml = {
+        pending:   '',
+        uploading: '<span class="file-status uploading">lädt …</span>',
+        done:      '<span class="file-status done">✓ Fertig</span>',
+        error:     '<span class="file-status error">✗ Fehler</span>'
+      }[st];
+
+      const isImg = item.file.type.startsWith('image/');
+      // Cache object URL — nur einmal erzeugen, nie neu erstellen
+      if (isImg && !item.objUrl) item.objUrl = URL.createObjectURL(item.file);
+      const thumbHtml = isImg
+        ? `<img class="file-thumb" src="${item.objUrl}" alt="" />`
+        : `<div class="file-thumb-generic">📄</div>`;
+
+      const actionsHtml = st === 'pending' ? `
+        <div class="file-actions">
+          <button
+            class="notiz-btn ${item.noteOpen ? 'open' : ''}"
+            id="notiz-btn-${i}"
+            onclick="toggleNote(${i})"
+            title="Notiz zu diesem Bild hinzufügen"
+          >
+            <span class="notiz-icon">✏️</span>
+            ${item.noteOpen ? 'Notiz ausblenden' : 'Notiz hinzufügen'}
+          </button>
+          <button class="remove-btn" onclick="removeFile(${i})" title="Entfernen">×</button>
+        </div>` : stHtml;
+
+      list.innerHTML += `
+        <div class="file-item">
+          <div class="file-head">
+            ${thumbHtml}
+            <div class="file-meta">
+              <div class="file-name">${escHtml(item.file.name)}</div>
+              <div class="file-size">${fmtSize(item.file.size)}</div>
+            </div>
+            ${actionsHtml}
+          </div>
+          <div class="notiz-wrap ${item.noteOpen ? 'open' : ''}">
+            <div class="notiz-inner">
+              <textarea
+                id="note-ta-${i}"
+                placeholder="Was soll dein Artist zu diesem Bild wissen? (optional)"
+                oninput="updateNote(${i}, this.value)"
+              >${item.note}</textarea>
+              <span class="notiz-hint">📁 Wird als separate Textdatei neben dem Bild gespeichert</span>
+            </div>
+          </div>
+        </div>`;
+    });
+  }
+
+  // ── Validierung ───────────────────────────────────────────
+  function getFields() {
+    return {
+      vorname:  document.getElementById('vorname').value.trim(),
+      nachname: document.getElementById('nachname').value.trim(),
+      datum:    document.getElementById('datum').value,
+      artist:   document.getElementById('artist').value
+    };
+  }
+
+  function validate(f, needFiles = false) {
+    if (!f.vorname || !f.nachname) return 'Bitte Vor- und Nachname eintragen.';
+    if (!f.datum)                  return 'Bitte das Termindatum auswählen.';
+    if (!f.artist)                 return 'Bitte einen Artist auswählen.';
+    if (needFiles && files.length === 0) return 'Bitte mindestens eine Datei auswählen.';
+    return null;
+  }
+
+  // ── Upload: Bilder ────────────────────────────────────────
+  async function uploadBilder() {
+    const f   = getFields();
+    const err = validate(f, true);
+    if (err) return showBanner('error', '⚠ ' + err);
+
+    const btn      = document.getElementById('btn-upload');
+    const progWrap = document.getElementById('prog-wrap');
+    const progBar  = document.getElementById('prog-bar');
+
+    btn.disabled = true;
+    progWrap.style.display = 'block';
+    progBar.style.width = '0%';
+    showBanner('info', 'Upload läuft …');
+
+    const statuses = {};
+    files.forEach((_, i) => statuses[i] = 'pending');
+    renderList(statuses);
+
+    let done = 0, errors = 0;
+
+    for (let i = 0; i < files.length; i++) {
+      statuses[i] = 'uploading';
+      renderList(statuses);
+
+      const fd = new FormData();
+      fd.append('vorname',  f.vorname);
+      fd.append('nachname', f.nachname);
+      fd.append('datum',    f.datum);
+      fd.append('artist',   f.artist);
+      fd.append('notes', JSON.stringify({ [files[i].file.name]: files[i].note || '' }));
+      fd.append('allgNotiz', document.getElementById('allg-notiz').value.trim());
+      fd.append('files', files[i].file, files[i].file.name);
+
+      try {
+        const res  = await fetch('/api/upload', { method: 'POST', body: fd });
+        const data = await res.json();
+        if (data.success) { statuses[i] = 'done';  done++; }
+        else              { statuses[i] = 'error'; errors++; }
+      } catch {
+        statuses[i] = 'error'; errors++;
+      }
+
+      renderList(statuses);
+      progBar.style.width = `${Math.round((i + 1) / files.length * 100)}%`;
+    }
+
+    btn.disabled = false;
+
+    if (errors === 0) {
+      showBanner('success',
+        `✓ ${done} Datei${done !== 1 ? 'en' : ''} erfolgreich gespeichert.\nWir freuen uns auf deinen Termin! 🖤`
+      );
+      files.forEach(f => { if (f.objUrl) URL.revokeObjectURL(f.objUrl); });
+      files = [];
+      renderList();
+      document.getElementById('allg-notiz').value = '';
+      progWrap.style.display = 'none';
+    } else {
+      showBanner('error',
+        `${done} hochgeladen, ${errors} fehlgeschlagen.\nBitte Verbindung prüfen und erneut versuchen.`
+      );
+    }
+  }
+
+  // ── Nachricht senden ──────────────────────────────────────
+  async function sendNachricht() {
+    const f   = getFields();
+    const err = validate(f);
+    if (err) return showBanner('error', '⚠ ' + err);
+
+    const text = document.getElementById('nachricht').value.trim();
+    if (!text) return showBanner('error', '⚠ Bitte eine Nachricht eingeben.');
+
+    const btn = document.querySelector('#section-text .btn-submit');
+    btn.disabled = true;
+    showBanner('info', 'Wird gesendet …');
+
+    try {
+      const res  = await fetch('/api/nachricht', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...f, nachricht: text })
+      });
+      const data = await res.json();
+      if (data.success) {
+        showBanner('success',
+          '✓ Deine Nachricht wurde übermittelt.\nWir melden uns vor deinem Termin! 🖤'
+        );
+        document.getElementById('nachricht').value = '';
+      } else {
+        showBanner('error', 'Fehler: ' + data.error);
+      }
+    } catch (e) {
+      showBanner('error', 'Verbindungsfehler: ' + e.message);
+    }
+
+    btn.disabled = false;
+  }
+
+  // ── Banner ────────────────────────────────────────────────
+  function showBanner(type, text) {
+    const b = document.getElementById('banner');
+    b.className = 'banner ' + type;
+    b.textContent = text;
+    b.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  function hideBanner() {
+    const b = document.getElementById('banner');
+    b.className = 'banner'; b.textContent = '';
+  }
+
+  // Default: heute
+  document.getElementById('datum').valueAsDate = new Date();
+</script>
+</body>
+</html>
